@@ -339,7 +339,7 @@ MAP = {
     # ── Callouts ─────────────────────────────────────────────────────────
     'callouts': [
         {
-            'lon': 34.08, 'lat': 31.55, 'text': 'MEDITERRANEAN',
+            'lon': 34.08, 'lat': 31.40, 'text': 'MEDITERRANEAN',
             'size': 8, 'color': '#4A7A9A', 'ha': 'center',
             'subtitle': 'SEA', 'subtitle_size': 7, 'subtitle_offset': 0.035,
         },
@@ -354,6 +354,22 @@ MAP = {
             'subtitle_offset': 0.03,
         },
     ],
+
+    # ── Inset locator ───────────────────────────────────────────────────
+    # Eastern Mediterranean context — shows Gaza's position relative to
+    # Israel, Egypt, Lebanon, Jordan, and the Mediterranean Sea.
+    'inset': {
+        'rect': [0.015, 0.50, 0.14, 0.17],
+        'extent': [27, 40, 26, 36],
+        'labels': [
+            {'lon': 35.2, 'lat': 31.8, 'text': 'ISR.', 'size': 3.5, 'color': '#888888'},
+            {'lon': 31.5, 'lat': 28.5, 'text': 'EGYPT', 'size': 3.5, 'color': '#888888'},
+            {'lon': 36.5, 'lat': 34, 'text': 'SYRIA', 'size': 3, 'color': '#AAAAAA'},
+            {'lon': 37, 'lat': 31, 'text': 'SAUDI\nARABIA', 'size': 3, 'color': '#AAAAAA'},
+            {'lon': 35.8, 'lat': 33.5, 'text': 'LEB.', 'size': 2.5, 'color': '#AAAAAA'},
+            {'lon': 36, 'lat': 31.5, 'text': 'JORDAN', 'size': 3, 'color': '#AAAAAA'},
+        ],
+    },
 
     # ── Scale bar ────────────────────────────────────────────────────────
     'scale_bar': {'lon': 34.55, 'lat': 31.10, 'km': 10, 'reference_lat': 31.4},

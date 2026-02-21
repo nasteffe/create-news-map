@@ -61,6 +61,7 @@ def render(spec):
     # Figure-level elements.
     chrome.title_block(fig, spec)
     chrome.scale_bar(ax, spec, proj)
+    _inset_map(fig, spec)
     panels.render_panels(fig, spec)
     chrome.bottom_bar(fig, spec)
     chrome.annotation_text(fig, spec)
@@ -77,6 +78,52 @@ def render(spec):
 
     plt.close(fig)
     return fig
+
+
+def _inset_map(fig, spec):
+    """Draw a small locator inset showing the main map area in context."""
+    inset = spec.get('inset')
+    if not inset:
+        return
+
+    import cartopy.feature as cfeature
+    from matplotlib.patches import Rectangle
+
+    proj = ccrs.PlateCarree()
+    ax = fig.add_axes(inset['rect'], projection=proj)
+    ax.set_extent(inset['extent'], crs=proj)
+
+    # Simplified background.
+    colors = spec.get('colors', {})
+    ax.set_facecolor(colors.get('ocean', '#C8DDE8'))
+    ax.add_feature(cfeature.NaturalEarthFeature(
+        'physical', 'land', '110m',
+        facecolor=colors.get('land', '#E8E2D8'), edgecolor='none'), zorder=1)
+    ax.add_feature(cfeature.BORDERS, linewidth=0.3,
+                   edgecolor='#AAAAAA', zorder=2)
+    ax.coastlines(resolution='110m', linewidth=0.4, color='#8A9AA6', zorder=3)
+
+    # Red rectangle showing the main map extent.
+    e = spec['extent']  # [lon_min, lon_max, lat_min, lat_max]
+    rect = Rectangle((e[0], e[2]), e[1] - e[0], e[3] - e[2],
+                      linewidth=1.5, edgecolor='#C03030',
+                      facecolor='#C03030', alpha=0.35,
+                      transform=proj, zorder=10)
+    ax.add_patch(rect)
+
+    # Frame.
+    for spine in ax.spines.values():
+        spine.set_edgecolor('#666666')
+        spine.set_linewidth(0.8)
+
+    # Optional labels.
+    from . import text as _text
+    for lbl in inset.get('labels', []):
+        ax.text(lbl['lon'], lbl['lat'], lbl['text'],
+                fontsize=lbl.get('size', 4),
+                color=lbl.get('color', '#666666'),
+                ha=lbl.get('ha', 'center'), va=lbl.get('va', 'center'),
+                transform=proj, zorder=15, **_text.font('body'))
 
 
 def _get_projection(spec):
