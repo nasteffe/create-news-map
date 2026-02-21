@@ -62,8 +62,30 @@ MAP = {
 
     # ── Analytical overlays ──────────────────────────────────────────────
 
-    # Severe destruction zone — northern Gaza.
+    # "Yellow Line" buffer zone — runs the full eastern border of Gaza,
+    # pushed 1.5 km (south) to 6.5 km (north) into the strip.  Covers
+    # ~58 % of the enclave; marked on the ground by yellow concrete blocks.
     'zones': [
+        {
+            'vertices': [
+                # Western edge of buffer (the "Yellow Line" itself, S → N)
+                (34.28, 31.22), (34.36, 31.30), (34.40, 31.38),
+                (34.44, 31.44), (34.46, 31.48), (34.49, 31.52),
+                (34.50, 31.56), (34.49, 31.59),
+                # Eastern edge (Gaza–Israel border, N → S)
+                (34.56, 31.59), (34.56, 31.52), (34.52, 31.44),
+                (34.48, 31.38), (34.42, 31.30), (34.35, 31.24),
+                (34.28, 31.22),
+            ],
+            'fill': '#DAA520', 'fill_alpha': 0.12,
+            'edge': '#DAA520', 'edge_alpha': 0.70,
+            'edge_width': 2.5, 'edge_style': '-',
+            'label': '"YELLOW LINE"\nBUFFER ZONE\n~58% of Gaza',
+            'label_pos': (34.54, 31.36),
+            'label_border': '#DAA520',
+            'label_size': 5,
+        },
+        # Severe destruction zone — northern Gaza.
         {
             'vertices': [
                 (34.37, 31.48), (34.44, 31.57), (34.56, 31.59),
@@ -131,6 +153,16 @@ MAP = {
             'ann_color': '#D97520', 'ann_size': 4.5,
             'ann_offset': (-0.06, -0.02), 'ann_ha': 'right',
         },
+        # Overcrowded displacement zone (circle, red).
+        {
+            'lon': 34.265, 'lat': 31.33, 'shape': 'o', 'size': 6,
+            'color': '#C03030', 'name': 'al-Mawasi',
+            'name_size': 5.5, 'name_offset': (-0.06, 0.005), 'name_ha': 'right',
+            'name_color': '#C03030',
+            'annotation': '"Safe zone" | 47 700 /sq km\n20 killed in Feb 4 airstrikes',
+            'ann_color': '#C03030', 'ann_size': 4,
+            'ann_offset': (-0.06, -0.015), 'ann_ha': 'right',
+        },
         # Central medical hub (diamond, green).
         {
             'lon': 34.34, 'lat': 31.42, 'shape': 'D', 'size': 8,
@@ -139,6 +171,16 @@ MAP = {
             'annotation': 'MSF field hospital\nCentral humanitarian hub',
             'ann_color': '#2B8C5A', 'ann_size': 4.5,
             'ann_offset': (-0.06, -0.02), 'ann_ha': 'right',
+        },
+        # Central refugee camp (circle, red).
+        {
+            'lon': 34.393, 'lat': 31.449, 'shape': 'o', 'size': 5,
+            'color': '#C03030', 'name': 'Nuseirat',
+            'name_size': 5.5, 'name_offset': (-0.05, 0.003), 'name_ha': 'right',
+            'name_color': '#C03030',
+            'annotation': 'Strikes continue',
+            'ann_color': '#666666', 'ann_size': 4,
+            'ann_offset': (-0.05, -0.012), 'ann_ha': 'right',
         },
         # Northern crisis cities (square, red).
         {
@@ -196,14 +238,6 @@ MAP = {
 
     # ── Lines ────────────────────────────────────────────────────────────
     'lines': [
-        # "Yellow Line" demarcation — ceasefire Phase 1 boundary.
-        {
-            'coords': [(34.28, 31.44), (34.50, 31.44)],
-            'color': '#DAA520', 'width': 3.0, 'style': '-', 'alpha': 0.65,
-            'label': '"YELLOW LINE"\nDEMARCATION',
-            'label_pos': (34.10, 31.445), 'label_color': '#DAA520',
-            'label_size': 5,
-        },
         # Salah al-Din Road — main north–south artery.
         {
             'coords': [
@@ -305,12 +339,13 @@ MAP = {
         'legend': {
             'markers': [
                 {'shape': 's', 'color': '#C03030', 'label': 'Crisis city'},
+                {'shape': 'o', 'color': '#C03030', 'label': 'Displacement / camp'},
                 {'shape': 'D', 'color': '#D97520', 'label': 'Major city'},
                 {'shape': 'D', 'color': '#2B8C5A', 'label': 'Medical hub'},
                 {'shape': '^', 'color': '#2878B0', 'label': 'Border crossing'},
             ],
             'lines': [
-                {'style': '-',  'color': '#DAA520', 'width': 2.5, 'label': 'Yellow Line'},
+                {'style': '-',  'color': '#DAA520', 'width': 2.5, 'label': 'Yellow Line buffer'},
                 {'style': '-',  'color': '#666666', 'width': 1.5, 'label': 'Main road'},
                 {'style': '--', 'color': '#C03030', 'width': 1.5, 'label': 'Destruction zone'},
                 {'style': '-',  'color': '#D97520', 'width': 2.0, 'label': 'Return flow'},
