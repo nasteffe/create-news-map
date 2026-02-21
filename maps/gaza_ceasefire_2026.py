@@ -124,13 +124,19 @@ MAP = {
         {
             'name': 'Wadi Gaza',
             'coords': [
-                (34.75, 31.30), (34.65, 31.34), (34.58, 31.38),
-                (34.52, 31.41), (34.48, 31.43), (34.45, 31.44),
-                (34.42, 31.455), (34.39, 31.46), (34.376, 31.464),
+                # Nahal Besor in the Negev (Israeli side).
+                (34.75, 31.28), (34.65, 31.33),
+                # Nahal Gerar confluence near Re'im.
+                (34.54, 31.39),
+                # Curves north toward Gaza border.
+                (34.50, 31.43), (34.47, 31.46),
+                # 9 km crossing through central Gaza (eight meanders).
+                (34.44, 31.46), (34.42, 31.462),
+                (34.40, 31.46), (34.376, 31.464),
             ],
             'width': 2.5,
-            'label_pos': (34.58, 31.37),
-            'label_rotation': -20,
+            'label_pos': (34.60, 31.36),
+            'label_rotation': -18,
         },
     ],
 
