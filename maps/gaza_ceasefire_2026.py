@@ -399,9 +399,9 @@ MAP = {
             'title': 'THE SITUATION ON THE GROUND',
             'rows': [
                 {'value': '601',     'description': 'killed since ceasefire began',       'color': '#C03030', 'detail': 'Oct 10, 2025 \u2013 Feb 16, 2026'},
-                {'value': '1,605',   'description': 'wounded since ceasefire',             'color': '#C03030', 'detail': 'incl. airstrikes, sniper fire'},
+                {'value': '1,607',   'description': 'wounded since ceasefire',             'color': '#C03030', 'detail': 'incl. airstrikes, sniper fire'},
                 {'value': '690,000', 'description': 'return movements south \u2192 north', 'color': '#D97520', 'detail': 'of 827,000 total movements'},
-                {'value': '1.5 M',   'description': 'people still displaced',              'color': '#D97520', 'detail': 'of 2.4 million total population'},
+                {'value': '1.4 M',   'description': 'people still displaced',              'color': '#D97520', 'detail': 'of 2.1 million current population'},
                 {'value': '$17 B',   'description': 'pledged at Board of Peace',           'color': '#6B4FA0', 'detail': 'Feb 19 \u2014 US $10B + 9 nations $7B'},
                 {'value': '20,000',  'description': 'troops planned for stabilization',    'color': '#1A6B4A', 'detail': 'Indonesia 8,000 + 4 other nations'},
             ],
@@ -432,7 +432,7 @@ MAP = {
         'flows': [
             {'category': 'CEASEFIRE',  'color': '#C03030', 'text': 'Phase Two launched Jan 14; 601 killed since Oct truce; 1,193 Israeli violations (GMO count); Hamas disarmament: unresolved'},
             {'category': 'AID',        'color': '#2878B0', 'text': '65 000+ trucks entered (COGAT); only 43% of agreed rate Oct\u2013Jan (UN count); UNRWA blocked since Mar 2025'},
-            {'category': 'DISPLACED',  'color': '#D97520', 'text': '690 000 returns south \u2192 north; 1.5M still displaced; 20 000 need medical evacuation; 100 000 children malnourished'},
+            {'category': 'DISPLACED',  'color': '#D97520', 'text': '690 000 returns south \u2192 north; 1.4M still displaced (of 2.1M current pop.); 20 000 need medical evacuation; 100 000 children malnourished'},
             {'category': 'GOVERNANCE', 'color': '#6B4FA0', 'text': 'NCAG: 15 technocrats chaired by Dr Ali Shaath; Board of Peace: 25 nations; 2 000 police recruits so far'},
             {'category': 'SECURITY',   'color': '#1A6B4A', 'text': 'ISF: 20 000 troops + 12 000 police planned; Indonesia (8 000), Morocco, Kazakhstan, Kosovo, Albania; deploying first to Rafah'},
         ],
@@ -458,7 +458,7 @@ MAP = {
     'annotations': [
         {
             'x': 0.30, 'y': 0.14,
-            'text': '\u2715 61 million tonnes of rubble \u2014 estimated 20 years to clear (UN)',
+            'text': '\u2715 61 million tonnes of rubble \u2014 estimated 7 years to clear (UNDP, Nov 2025)',
             'size': 5.5, 'color': '#8B4513',
         },
     ],
