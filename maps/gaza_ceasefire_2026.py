@@ -173,8 +173,8 @@ MAP = {
                 (34.37, 31.48), (34.44, 31.57), (34.56, 31.59),
                 (34.56, 31.48), (34.50, 31.45), (34.37, 31.48),
             ],
-            'fill': '#C03030', 'fill_alpha': 0.10,
-            'edge': '#C03030', 'edge_alpha': 0.5,
+            'fill': '#C03030', 'fill_alpha': 0.12,
+            'edge': '#C03030', 'edge_alpha': 0.6,
             'label': 'SEVERE DESTRUCTION',
             'label_pos': (34.50, 31.555),
             'label_border': '#C03030',
@@ -186,8 +186,8 @@ MAP = {
     'scatter_marks': [
         {
             'bounds': (34.40, 34.55, 31.48, 31.58),
-            'n': 15, 'marker': 'x', 'color': '#8B4513',
-            'alpha': 0.30, 'seed': 7,
+            'n': 28, 'marker': 'x', 'size': 30, 'color': '#8B4513',
+            'alpha': 0.40, 'linewidth': 1.8, 'seed': 7,
         },
     ],
 
@@ -329,7 +329,7 @@ MAP = {
                 (34.36, 31.40), (34.40, 31.45), (34.44, 31.50),
                 (34.48, 31.55),
             ],
-            'color': '#666666', 'width': 1.5, 'style': '-', 'alpha': 0.35,
+            'color': '#666666', 'width': 1.8, 'style': '-', 'alpha': 0.45,
             'label': 'Salah al-Din Rd',
             'label_pos': (34.42, 31.465), 'label_color': '#555555',
             'label_size': 4,
