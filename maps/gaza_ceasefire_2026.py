@@ -192,23 +192,25 @@ MAP = {
     ],
 
     # ── Point markers ────────────────────────────────────────────────────
+    # Label-collision strategy: all southern annotations are single-line;
+    # al-Mawasi labels go RIGHT while neighbours go LEFT.
     'markers': [
         # Border crossings (triangle, blue).
         {
             'lon': 34.255, 'lat': 31.243, 'shape': '^', 'size': 10,
             'color': '#2878B0', 'name': 'Rafah Crossing',
-            'name_size': 6, 'name_offset': (-0.12, -0.005), 'name_ha': 'center',
-            'annotation': 'Reopened Feb 2 | EU-supervised\n150 exits / 50 returns per day',
+            'name_size': 6, 'name_offset': (-0.12, -0.008), 'name_ha': 'center',
+            'annotation': 'Reopened Feb 2 | EU-supervised',
             'ann_color': '#2878B0', 'ann_size': 4.5,
-            'ann_offset': (-0.12, -0.03), 'ann_ha': 'center',
+            'ann_offset': (-0.12, -0.025), 'ann_ha': 'center',
         },
         {
             'lon': 34.29, 'lat': 31.215, 'shape': '^', 'size': 10,
             'color': '#2878B0', 'name': 'Kerem Abu Salem',
-            'name_size': 6, 'name_offset': (0.04, 0.005), 'name_va': 'center',
-            'annotation': 'Main aid entry\n65 000+ trucks since ceasefire',
+            'name_size': 6, 'name_offset': (0.05, 0.005), 'name_va': 'center',
+            'annotation': 'Main aid entry | 65 000+ trucks',
             'ann_color': '#2878B0', 'ann_size': 4.5,
-            'ann_offset': (0.04, -0.025),
+            'ann_offset': (0.05, -0.018),
         },
         {
             'lon': 34.56, 'lat': 31.585, 'shape': '^', 'size': 9,
@@ -222,37 +224,37 @@ MAP = {
         {
             'lon': 34.245, 'lat': 31.29, 'shape': 'D', 'size': 8,
             'color': '#D97520', 'name': 'Rafah',
-            'name_size': 7, 'name_offset': (-0.09, 0.005), 'name_ha': 'center',
-            'annotation': 'ISF deploying here first\nReconstruction priority',
+            'name_size': 7, 'name_offset': (-0.11, 0.005), 'name_ha': 'center',
+            'annotation': 'ISF deploying first | reconstruction priority',
             'ann_color': '#D97520', 'ann_size': 4.5,
-            'ann_offset': (-0.09, -0.02), 'ann_ha': 'center',
+            'ann_offset': (-0.11, -0.015), 'ann_ha': 'center',
         },
         {
             'lon': 34.305, 'lat': 31.345, 'shape': 'D', 'size': 8,
             'color': '#D97520', 'name': 'Khan Yunis',
-            'name_size': 7, 'name_offset': (-0.06, 0.005), 'name_ha': 'right',
-            'annotation': 'Nasser Hospital operating\nOngoing ceasefire violations',
+            'name_size': 7, 'name_offset': (-0.07, 0.005), 'name_ha': 'right',
+            'annotation': 'Nasser Hospital | ceasefire violations',
             'ann_color': '#D97520', 'ann_size': 4.5,
-            'ann_offset': (-0.06, -0.02), 'ann_ha': 'right',
+            'ann_offset': (-0.07, -0.015), 'ann_ha': 'right',
         },
-        # Overcrowded displacement zone (circle, red).
+        # Overcrowded displacement zone — labels RIGHT to avoid Khan Yunis.
         {
-            'lon': 34.265, 'lat': 31.33, 'shape': 'o', 'size': 6,
+            'lon': 34.265, 'lat': 31.33, 'shape': 'o', 'size': 5,
             'color': '#C03030', 'name': 'al-Mawasi',
-            'name_size': 5.5, 'name_offset': (-0.06, 0.005), 'name_ha': 'right',
+            'name_size': 5, 'name_offset': (0.035, -0.003), 'name_ha': 'left',
             'name_color': '#C03030',
-            'annotation': '"Safe zone" | 47 700 /sq km\n20 killed in Feb 4 airstrikes',
+            'annotation': '"Safe zone" | 47 700/km\u00b2',
             'ann_color': '#C03030', 'ann_size': 4,
-            'ann_offset': (-0.06, -0.015), 'ann_ha': 'right',
+            'ann_offset': (0.035, -0.016), 'ann_ha': 'left',
         },
         # Central medical hub (diamond, green).
         {
             'lon': 34.34, 'lat': 31.42, 'shape': 'D', 'size': 8,
             'color': '#2B8C5A', 'name': 'Deir al-Balah',
             'name_size': 7, 'name_offset': (-0.06, 0.005), 'name_ha': 'right',
-            'annotation': 'MSF field hospital\nCentral humanitarian hub',
+            'annotation': 'MSF field hospital | humanitarian hub',
             'ann_color': '#2B8C5A', 'ann_size': 4.5,
-            'ann_offset': (-0.06, -0.02), 'ann_ha': 'right',
+            'ann_offset': (-0.06, -0.015), 'ann_ha': 'right',
         },
         # Central refugee camp (circle, red).
         {
@@ -269,17 +271,17 @@ MAP = {
             'lon': 34.44, 'lat': 31.505, 'shape': 's', 'size': 8,
             'color': '#C03030', 'name': 'Gaza City',
             'name_size': 7.5, 'name_offset': (-0.06, 0.01), 'name_ha': 'right',
-            'annotation': 'Massive returns amid rubble\nAl-Shifa Hospital destroyed',
+            'annotation': 'Mass returns amid rubble\nAl-Shifa Hospital destroyed',
             'ann_color': '#C03030', 'ann_size': 4.5,
             'ann_offset': (-0.06, -0.02), 'ann_ha': 'right',
         },
         {
             'lon': 34.49, 'lat': 31.535, 'shape': 's', 'size': 7,
             'color': '#C03030', 'name': 'Jabalia',
-            'name_size': 6.5, 'name_offset': (0.03, 0.005), 'name_va': 'center',
-            'annotation': 'Refugee camp destroyed\nIPC Phase 4: critical',
+            'name_size': 6.5, 'name_offset': (0.04, 0.008), 'name_va': 'center',
+            'annotation': 'Camp destroyed | IPC Phase 4',
             'ann_color': '#C03030', 'ann_size': 4.5,
-            'ann_offset': (0.03, -0.02),
+            'ann_offset': (0.04, -0.015),
         },
     ],
 
