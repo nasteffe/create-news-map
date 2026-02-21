@@ -31,33 +31,109 @@ MAP = {
     },
 
     # ── Terrain ──────────────────────────────────────────────────────────
+    # Gaza sits on a coastal plain rising gently east toward the Negev.
+    # Three parallel kurkar (calcareous sandstone) ridges run NE–SW
+    # through the strip; real elevation ranges 0–110 m.  The Negev
+    # rises to 200–400 m east of the border.  DEM values are
+    # exaggerated to produce visible hillshade relief.
+
     'hillshade': True,
-    'hillshade_alpha': 0.08,
-    'hillshade_resolution': 250,
-    'hillshade_smooth': 14,
+    'hillshade_alpha': 0.18,
+    'hillshade_resolution': 300,
+    'hillshade_smooth': 10,
 
     'terrain_zones': [
+        # Coastal sand-dune belt (Sheikh Ejlin kurkar ridge zone).
+        # Real elevation: 0–40 m; narrow strip along the Mediterranean.
         {
-            'name': 'Coastal lowlands',
+            'name': 'Coastal sand belt',
             'vertices': [
-                (34.0, 31.08), (34.35, 31.08), (34.42, 31.30),
-                (34.48, 31.50), (34.50, 31.72), (34.0, 31.72),
+                (34.0, 31.08), (34.28, 31.08), (34.30, 31.20),
+                (34.34, 31.35), (34.38, 31.48), (34.42, 31.58),
+                (34.44, 31.68), (34.44, 31.72), (34.0, 31.72),
                 (34.0, 31.08),
             ],
-            'color': '#E2DCD0', 'alpha': 0.25, 'elevation': 20,
+            'color': '#E5DEC8', 'alpha': 0.18, 'elevation': 20,
         },
+        # Inner coastal plain (inter-ridge depressions, alluvium).
+        # Real elevation: 20–60 m; where most of Gaza's cities sit.
         {
-            'name': 'Eastern border zone',
+            'name': 'Inner coastal plain',
             'vertices': [
-                (34.35, 31.08), (34.75, 31.08), (34.75, 31.72),
-                (34.50, 31.72), (34.48, 31.50), (34.42, 31.30),
-                (34.35, 31.08),
+                (34.28, 31.08), (34.42, 31.08), (34.45, 31.25),
+                (34.48, 31.40), (34.50, 31.55), (34.52, 31.68),
+                (34.52, 31.72), (34.44, 31.72), (34.44, 31.68),
+                (34.42, 31.58), (34.38, 31.48), (34.34, 31.35),
+                (34.30, 31.20), (34.28, 31.08),
             ],
-            'color': '#D4CCBC', 'alpha': 0.35, 'elevation': 120,
+            'color': '#DDD5C0', 'alpha': 0.25, 'elevation': 80,
+        },
+        # Eastern ridge zone (Al Montar kurkar ridge + Israeli border).
+        # Real elevation: 40–110 m; Gaza's highest ground & former
+        # agricultural heartland.
+        {
+            'name': 'Eastern ridge / border zone',
+            'vertices': [
+                (34.42, 31.08), (34.56, 31.08), (34.58, 31.25),
+                (34.58, 31.40), (34.57, 31.55), (34.56, 31.68),
+                (34.55, 31.72), (34.52, 31.72), (34.52, 31.68),
+                (34.50, 31.55), (34.48, 31.40), (34.45, 31.25),
+                (34.42, 31.08),
+            ],
+            'color': '#D0C8B0', 'alpha': 0.30, 'elevation': 250,
+        },
+        # Western Negev foothills — semi-arid loess hills.
+        # Real elevation: 100–250 m.
+        {
+            'name': 'Western Negev foothills',
+            'vertices': [
+                (34.56, 31.08), (34.68, 31.08), (34.68, 31.72),
+                (34.55, 31.72), (34.56, 31.68), (34.57, 31.55),
+                (34.58, 31.40), (34.58, 31.25), (34.56, 31.08),
+            ],
+            'color': '#C8C0A8', 'alpha': 0.35, 'elevation': 500,
+        },
+        # Negev plateau — rolling hills, eastern edge of map.
+        # Real elevation: 200–400 m.
+        {
+            'name': 'Negev plateau',
+            'vertices': [
+                (34.68, 31.08), (34.75, 31.08), (34.75, 31.72),
+                (34.68, 31.72), (34.68, 31.08),
+            ],
+            'color': '#BFB598', 'alpha': 0.40, 'elevation': 900,
+        },
+        # Sinai desert margin — flat coastal desert south of Rafah.
+        # Real elevation: 0–50 m.
+        {
+            'name': 'Sinai desert margin',
+            'vertices': [
+                (34.0, 31.08), (34.28, 31.08), (34.25, 31.22),
+                (34.20, 31.22), (34.0, 31.18), (34.0, 31.08),
+            ],
+            'color': '#DDD0B0', 'alpha': 0.22, 'elevation': 40,
         },
     ],
 
-    'ne_rivers': False,
+    # Wadi Gaza / Nahal Besor — 105 km river system from the Negev
+    # hills to the Mediterranean at Al-Zahra (31.464°N, 34.376°E).
+    # Eight curves within the 9 km Gaza crossing.
+    'ne_rivers': True,
+
+    'rivers': [
+        {
+            'name': 'Wadi Gaza',
+            'coords': [
+                (34.75, 31.30), (34.65, 31.34), (34.58, 31.38),
+                (34.52, 31.41), (34.48, 31.43), (34.45, 31.44),
+                (34.42, 31.455), (34.39, 31.46), (34.376, 31.464),
+            ],
+            'width': 2.5,
+            'label_pos': (34.58, 31.37),
+            'label_rotation': -20,
+        },
+    ],
+
     'lakes': False,
 
     # ── Analytical overlays ──────────────────────────────────────────────
