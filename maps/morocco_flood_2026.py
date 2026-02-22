@@ -239,7 +239,7 @@ MAP = {
         },
     ],
 
-    # Supply chain disruption line.
+    # Supply chain disruption line + N1 highway.
     'lines': [
         {
             'coords': [(-6.2, 35.15), (-5.9, 35.4), (-5.6, 35.83)],
@@ -247,6 +247,17 @@ MAP = {
             'end_marker': {'shape': 'X', 'size': 14, 'color': '#C03030'},
             'label': 'SUPPLY CHAIN\nDISRUPTED',
             'label_pos': (-4.65, 35.55), 'label_color': '#7B3FA0',
+        },
+        # N1 highway (Rabat → Kenitra → Sidi Slimane → Sidi Kacem → east).
+        {
+            'coords': [
+                (-6.83, 33.97), (-6.68, 34.12), (-6.58, 34.26),
+                (-6.35, 34.25), (-6.10, 34.25), (-5.93, 34.26),
+                (-5.71, 34.22), (-5.40, 34.18),
+            ],
+            'color': '#888888', 'width': 1.2, 'style': '-', 'alpha': 0.45,
+            'label': 'N1', 'label_pos': (-6.35, 34.15),
+            'label_color': '#888888', 'label_size': 4.5,
         },
     ],
 
@@ -287,11 +298,11 @@ MAP = {
     # ── Scale bar ────────────────────────────────────────────────────────
     'scale_bar': {'lon': -7.3, 'lat': 32.85, 'km': 100, 'reference_lat': 34.0},
 
-    # ── Right-side panels ────────────────────────────────────────────────
+    # ── Right-side panels (three stacked: bar chart, metrics, timeline) ──
     'panels': [
         {
             'type': 'bar_chart',
-            'rect': [0.62, 0.67, 0.35, 0.27],
+            'rect': [0.62, 0.74, 0.35, 0.20],
             'title': 'WATER INFLOW TO MOROCCAN DAMS',
             'x_label': 'billions of cubic metres',
             'x_max': 11,
@@ -308,8 +319,9 @@ MAP = {
         },
         {
             'type': 'metrics',
-            'rect': [0.62, 0.15, 0.35, 0.50],
+            'rect': [0.62, 0.40, 0.35, 0.32],
             'title': 'THE HUMAN COST',
+            'row_spacing': 0.085,
             'rows': [
                 {'value': '188 000',   'description': 'persons displaced',          'color': '#D97520', 'detail': 'across 4 provinces'},
                 {'value': '40 000',    'description': 'in tent camps near Kenitra',  'color': '#CC9900', 'detail': 'blue tents | livestock separated'},
@@ -329,12 +341,22 @@ MAP = {
                         'quote': '\u201cWe have no grain left to feed our livestock,\n  and they are our main source of income.\u201d',
                         'attribution': '\u2014 Chergui al-Alja, 42',
                     },
-                    {
-                        'quote': '\u201cAll of it is gone now. Still, praise be to\n  God for this blessing.\u201d',
-                        'attribution': '\u2014 Mohamed Reouani, 63, Ouled Salama',
-                    },
                 ],
             },
+        },
+        {
+            'type': 'timeline',
+            'rect': [0.62, 0.15, 0.35, 0.23],
+            'title': 'FLOOD CHRONOLOGY',
+            'events': [
+                {'date': 'Sep 2025',  'text': 'Record rainfall season begins in NW Morocco',     'color': '#2878B0'},
+                {'date': 'Jan 28',    'text': 'Dam inflows surge; reservoirs exceed capacity',    'color': '#2878B0'},
+                {'date': 'Feb 2\u20133', 'text': 'Ksar El Kebir evacuated \u2014 50 000 flee',   'color': '#C03030'},
+                {'date': 'Feb 4',     'text': '108 000 evacuated across 4 provinces',             'color': '#D97520'},
+                {'date': 'Feb 8',     'text': 'Storm Marta: Tetouan flash flood, 5 dead',         'color': '#C03030'},
+                {'date': 'Feb 11',    'text': '8.8 bn m\u00b3 inflow recorded \u2014 2 yr in 1 mo', 'color': '#2878B0'},
+                {'date': 'Feb 13',    'text': 'Royal relief order: MAD 3 bn ($328 M)',            'color': '#2878B0'},
+            ],
         },
     ],
 
@@ -365,6 +387,7 @@ MAP = {
                 {'style': '-',  'color': '#4A90C4', 'width': 2.0, 'label': 'River'},
                 {'style': '--', 'color': '#7B3FA0', 'width': 1.5, 'label': 'Supply chain disruption'},
                 {'style': '-',  'color': '#D97520', 'width': 2.0, 'label': 'Displacement flow'},
+                {'style': '-',  'color': '#888888', 'width': 1.0, 'label': 'N1 highway'},
             ],
         },
         'sources': 'Sources: IFRC | Moroccan Interior Ministry | COAG Andalusia | AFP | ESA/Copernicus | ReliefWeb | Met Office',

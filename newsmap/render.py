@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import warnings
 
-from . import geo, marks, panels, chrome, defaults
+from . import geo, marks, panels, chrome, defaults, validate
 
 warnings.filterwarnings('ignore')
 
@@ -49,6 +49,10 @@ def render(spec):
     shape. Every key is optional except 'extent'. Omit what you don't
     need — scale-aware defaults fill the rest.
     """
+    # Validate before rendering (skip with '_skip_validation': True).
+    if not spec.get('_skip_validation'):
+        validate.check(spec)
+
     # Merge scale-aware defaults under user spec (user always wins).
     computed = defaults.for_extent(spec['extent'])
     spec = defaults.deep_merge(computed, spec)

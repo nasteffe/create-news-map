@@ -110,13 +110,23 @@ def annotation_text(fig, spec):
 # ── Legend drawing ───────────────────────────────────────────────────────────
 
 def _draw_legend(ax, legend):
-    """Draw marker + line legend in the bottom bar."""
+    """Draw marker + line legend in the bottom bar.
+
+    If marker_x / line_x / spacing are omitted, positions are
+    auto-computed from the item counts so the legend fills the
+    available space without manual tuning.
+    """
     marker_items = legend.get('markers', [])
     line_items = legend.get('lines', [])
-    mx = legend.get('marker_x', 0.72)
-    lx = legend.get('line_x', 0.84)
+
+    # Auto-compute layout when positions aren't explicit.
+    n_markers = len(marker_items)
+    n_lines = len(line_items)
+    n_max = max(n_markers, n_lines, 1)
     y0 = legend.get('y', 0.88)
-    spacing = legend.get('spacing', 0.155)
+    spacing = legend.get('spacing', min(0.155, 0.75 / max(n_max, 1)))
+    mx = legend.get('marker_x', 0.72)
+    lx = legend.get('line_x', mx + 0.12 if n_markers else mx)
 
     if marker_items or line_items:
         ax.text(mx, y0 + 0.05, 'LEGEND', fontsize=6,
