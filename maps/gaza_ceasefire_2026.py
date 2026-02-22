@@ -359,7 +359,7 @@ MAP = {
     # Eastern Mediterranean context — shows Gaza's position relative to
     # Israel, Egypt, Lebanon, Jordan, and the Mediterranean Sea.
     'inset': {
-        'rect': [0.015, 0.50, 0.14, 0.17],
+        'rect': [0.015, 0.52, 0.18, 0.14],
         'extent': [27, 40, 26, 36],
         'labels': [
             {'lon': 35.2, 'lat': 31.8, 'text': 'ISR.', 'size': 3.5, 'color': '#888888'},
@@ -378,24 +378,24 @@ MAP = {
     'panels': [
         {
             'type': 'bar_chart',
-            'rect': [0.61, 0.68, 0.36, 0.26],
+            'rect': [0.68, 0.68, 0.29, 0.26],
             'title': 'DAILY AID TRUCKS ENTERING GAZA',
             'x_label': 'trucks per day',
             'x_max': 750,
             'bars': [
-                {'label': 'Agreed rate\n(ceasefire deal)', 'value': 600, 'color': '#2878B0', 'alpha': 0.40},
-                {'label': 'Actual average\nOct 2025\u2013Jan 2026', 'value': 255, 'color': '#C03030', 'alpha': 0.75},
-                {'label': 'Feb 1\u20137\n(daily average)', 'value': 600, 'color': '#2B8C5A', 'alpha': 0.65},
+                {'label': 'Agreed rate', 'value': 600, 'color': '#2878B0', 'alpha': 0.40},
+                {'label': 'Oct\u2013Jan avg', 'value': 255, 'color': '#C03030', 'alpha': 0.75},
+                {'label': 'Feb 1\u20137 avg', 'value': 600, 'color': '#2B8C5A', 'alpha': 0.65},
             ],
             'annotation': {
-                'x': 255, 'y': 1.58,
+                'x': 255, 'y': 1.55,
                 'text': '57% SHORTFALL FOR 4 MONTHS',
                 'size': 6, 'color': '#C03030',
             },
         },
         {
             'type': 'metrics',
-            'rect': [0.61, 0.145, 0.36, 0.50],
+            'rect': [0.62, 0.145, 0.35, 0.50],
             'title': 'THE SITUATION ON THE GROUND',
             'rows': [
                 {'value': '601',     'description': 'killed since ceasefire began',       'color': '#C03030', 'detail': 'Oct 10, 2025 \u2013 Feb 16, 2026'},

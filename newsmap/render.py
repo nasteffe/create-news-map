@@ -96,12 +96,13 @@ def _inset_map(fig, spec):
     # Simplified background.
     colors = spec.get('colors', {})
     ax.set_facecolor(colors.get('ocean', '#C8DDE8'))
+    inset_res = inset.get('resolution', '50m')
     ax.add_feature(cfeature.NaturalEarthFeature(
-        'physical', 'land', '110m',
+        'physical', 'land', inset_res,
         facecolor=colors.get('land', '#E8E2D8'), edgecolor='none'), zorder=1)
     ax.add_feature(cfeature.BORDERS, linewidth=0.3,
                    edgecolor='#AAAAAA', zorder=2)
-    ax.coastlines(resolution='110m', linewidth=0.4, color='#8A9AA6', zorder=3)
+    ax.coastlines(resolution=inset_res, linewidth=0.4, color='#8A9AA6', zorder=3)
 
     # Red rectangle showing the main map extent.
     e = spec['extent']  # [lon_min, lon_max, lat_min, lat_max]
