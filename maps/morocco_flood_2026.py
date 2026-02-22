@@ -254,6 +254,21 @@ MAP = {
         },
     ],
 
+    # ── Inset locator ───────────────────────────────────────────────────
+    # Western Mediterranean context — shows Morocco relative to Spain,
+    # Algeria, and the Atlantic/Mediterranean.
+    'inset': {
+        'rect': [0.015, 0.52, 0.17, 0.14],
+        'extent': [-15, 5, 27, 42],
+        'labels': [
+            {'lon': -5.0, 'lat': 32.0, 'text': 'MOROCCO', 'size': 4, 'color': '#666666'},
+            {'lon': -3.5, 'lat': 40.0, 'text': 'SPAIN', 'size': 4, 'color': '#888888'},
+            {'lon': 1.0, 'lat': 33.5, 'text': 'ALGERIA', 'size': 3.5, 'color': '#888888'},
+            {'lon': -12.0, 'lat': 39.0, 'text': 'ATLANTIC\nOCEAN', 'size': 3, 'color': '#6A8DA8', 'ha': 'center'},
+            {'lon': 2.0, 'lat': 38.0, 'text': 'MED.\nSEA', 'size': 3, 'color': '#6A8DA8', 'ha': 'center'},
+        ],
+    },
+
     # ── Scale bar ────────────────────────────────────────────────────────
     'scale_bar': {'lon': -7.3, 'lat': 32.85, 'km': 100, 'reference_lat': 34.0},
 
@@ -261,14 +276,14 @@ MAP = {
     'panels': [
         {
             'type': 'bar_chart',
-            'rect': [0.61, 0.68, 0.36, 0.26],
+            'rect': [0.68, 0.68, 0.29, 0.26],
             'title': 'WATER INFLOW TO MOROCCAN DAMS',
             'x_label': 'billions of cubic metres',
             'x_max': 11,
             'bars': [
-                {'label': '2024\n(full year)',               'value': 4.5,  'color': '#2878B0', 'alpha': 0.45},
-                {'label': '2025\n(full year)',               'value': 4.5,  'color': '#2878B0', 'alpha': 0.45},
-                {'label': '2026-01-11 to\n2026-02-11',      'value': 8.82, 'color': '#C03030', 'alpha': 0.75},
+                {'label': '2024\n(full year)',          'value': 4.5,  'color': '#2878B0', 'alpha': 0.45},
+                {'label': '2025\n(full year)',          'value': 4.5,  'color': '#2878B0', 'alpha': 0.45},
+                {'label': '2026-01-11 to\n2026-02-11', 'value': 8.82, 'color': '#C03030', 'alpha': 0.75},
             ],
             'annotation': {
                 'x': 8.82, 'y': 2.42,
@@ -278,7 +293,7 @@ MAP = {
         },
         {
             'type': 'metrics',
-            'rect': [0.61, 0.145, 0.36, 0.50],
+            'rect': [0.62, 0.145, 0.35, 0.50],
             'title': 'THE HUMAN COST',
             'rows': [
                 {'value': '188 000',   'description': 'persons displaced',          'color': '#D97520', 'detail': 'across 4 provinces'},
