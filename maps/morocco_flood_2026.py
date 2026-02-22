@@ -19,7 +19,7 @@ MAP = {
 
     'layout': {
         'size': (16.54, 11.69),           # A4 landscape
-        'map': [0.01, 0.16, 0.58, 0.79],
+        'map': [0.01, 0.15, 0.58, 0.80],
     },
 
     'colors': {
@@ -258,7 +258,7 @@ MAP = {
     # Western Mediterranean context — shows Morocco relative to Spain,
     # Algeria, and the Atlantic/Mediterranean.
     'inset': {
-        'rect': [0.36, 0.17, 0.22, 0.19],
+        'rect': [0.37, 0.15, 0.22, 0.19],
         'extent': [-12, 4, 28, 40],
         'labels': [
             {'lon': -5.0, 'lat': 31.0, 'text': 'MOROCCO', 'size': 5.5, 'color': '#555555'},
@@ -276,7 +276,7 @@ MAP = {
     'panels': [
         {
             'type': 'bar_chart',
-            'rect': [0.68, 0.68, 0.29, 0.26],
+            'rect': [0.62, 0.67, 0.35, 0.27],
             'title': 'WATER INFLOW TO MOROCCAN DAMS',
             'x_label': 'billions of cubic metres',
             'x_max': 11,
@@ -293,7 +293,7 @@ MAP = {
         },
         {
             'type': 'metrics',
-            'rect': [0.62, 0.16, 0.35, 0.49],
+            'rect': [0.62, 0.15, 0.35, 0.50],
             'title': 'THE HUMAN COST',
             'rows': [
                 {'value': '188 000',   'description': 'persons displaced',          'color': '#D97520', 'detail': 'across 4 provinces'},

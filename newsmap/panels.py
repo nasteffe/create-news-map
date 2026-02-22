@@ -21,7 +21,15 @@ def render_panels(fig, spec):
 
 def _bar_chart(fig, p):
     """Horizontal bar chart panel."""
-    ax = fig.add_axes(p['rect'])
+    rect = p['rect']
+
+    # Allocate a title strip above the chart area so the title stays
+    # inside the overall panel footprint instead of bleeding upward.
+    title_frac = 0.16                       # fraction of rect height for title
+    title_h = rect[3] * title_frac
+    chart_rect = [rect[0], rect[1], rect[2], rect[3] - title_h]
+
+    ax = fig.add_axes(chart_rect)
     ax.set_facecolor('white')
     for spine in ax.spines.values():
         spine.set_color('#DDDDDD')
@@ -49,18 +57,22 @@ def _bar_chart(fig, p):
     # Value labels on bars.
     for i, v in enumerate(values):
         ax.text(v + 0.15, i, str(v), fontsize=7, va='center',
-                color='#333333', **text.font('mono'))
+                color='#333333', clip_on=True, **text.font('mono'))
 
-    # Annotation (optional).
+    # Annotation (optional) — clip to axes.
     ann = p.get('annotation')
     if ann:
         ax.text(ann['x'], ann['y'], ann['text'],
                 fontsize=ann.get('size', 6.5),
                 color=ann.get('color', '#C03030'),
                 ha=ann.get('ha', 'right'), va=ann.get('va', 'top'),
-                **text.font('label'))
+                clip_on=True, **text.font('label'))
 
-    ax.set_title(p.get('title', ''), fontsize=9, loc='left', pad=8,
+    # Title rendered inside the allocated strip above the chart.
+    title = p.get('title', '')
+    if title:
+        fig.text(rect[0], rect[1] + rect[3] - title_h * 0.35,
+                 title, fontsize=9, va='center', ha='left',
                  color='#1a1a1a', **text.font('title'))
 
 
