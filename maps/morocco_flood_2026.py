@@ -258,14 +258,14 @@ MAP = {
     # Western Mediterranean context — shows Morocco relative to Spain,
     # Algeria, and the Atlantic/Mediterranean.
     'inset': {
-        'rect': [0.015, 0.52, 0.17, 0.14],
-        'extent': [-15, 5, 27, 42],
+        'rect': [0.015, 0.35, 0.24, 0.22],
+        'extent': [-12, 4, 28, 40],
         'labels': [
-            {'lon': -5.0, 'lat': 32.0, 'text': 'MOROCCO', 'size': 4, 'color': '#666666'},
-            {'lon': -3.5, 'lat': 40.0, 'text': 'SPAIN', 'size': 4, 'color': '#888888'},
-            {'lon': 1.0, 'lat': 33.5, 'text': 'ALGERIA', 'size': 3.5, 'color': '#888888'},
-            {'lon': -12.0, 'lat': 39.0, 'text': 'ATLANTIC\nOCEAN', 'size': 3, 'color': '#6A8DA8', 'ha': 'center'},
-            {'lon': 2.0, 'lat': 38.0, 'text': 'MED.\nSEA', 'size': 3, 'color': '#6A8DA8', 'ha': 'center'},
+            {'lon': -5.0, 'lat': 31.0, 'text': 'MOROCCO', 'size': 5.5, 'color': '#555555'},
+            {'lon': -3.0, 'lat': 39.0, 'text': 'SPAIN', 'size': 5, 'color': '#777777'},
+            {'lon': 1.5, 'lat': 33.0, 'text': 'ALGERIA', 'size': 4.5, 'color': '#777777'},
+            {'lon': -10.0, 'lat': 38.0, 'text': 'ATLANTIC\nOCEAN', 'size': 3.5, 'color': '#6A8DA8', 'ha': 'center'},
+            {'lon': 2.5, 'lat': 37.5, 'text': 'MED. SEA', 'size': 3.5, 'color': '#6A8DA8', 'ha': 'center'},
         ],
     },
 
