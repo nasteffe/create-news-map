@@ -3,6 +3,10 @@
 The pipeline is function composition: create axes, apply layers in
 sequence, save. Each layer reads its own keys from the spec and skips
 gracefully if the data isn't present.
+
+Scale-aware defaults are computed from the extent and deep-merged under
+the user spec, so every value is overridable and existing specs render
+identically.
 """
 
 import matplotlib
@@ -12,7 +16,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import warnings
 
-from . import geo, marks, panels, chrome
+from . import geo, marks, panels, chrome, defaults
 
 warnings.filterwarnings('ignore')
 
@@ -42,15 +46,20 @@ def render(spec):
     """Main entry point: render a map spec to output files.
 
     spec is a plain dict. See maps/morocco_flood_2026.py for the full
-    shape. Every key is optional — omit what you don't need.
+    shape. Every key is optional except 'extent'. Omit what you don't
+    need — scale-aware defaults fill the rest.
     """
-    size = spec.get('layout', {}).get('size', (16.54, 11.69))
+    # Merge scale-aware defaults under user spec (user always wins).
+    computed = defaults.for_extent(spec['extent'])
+    spec = defaults.deep_merge(computed, spec)
+
+    size = spec['layout']['size']
     proj = _get_projection(spec)
     fig = plt.figure(figsize=size, dpi=150)
     fig.patch.set_facecolor('white')
 
     # Map axes.
-    map_rect = spec.get('layout', {}).get('map', [0.01, 0.145, 0.58, 0.80])
+    map_rect = spec['layout']['map']
     ax = fig.add_axes(map_rect, projection=proj)
     ax.set_extent(spec['extent'], crs=proj)
 
@@ -67,7 +76,7 @@ def render(spec):
     chrome.annotation_text(fig, spec)
 
     # Save.
-    output = spec.get('output', {})
+    output = spec['output']
     basename = output.get('basename', 'map')
     for fmt in output.get('formats', [{'ext': 'jpg', 'dpi': 200}]):
         path = f"{basename}.{fmt['ext']}"
@@ -127,14 +136,38 @@ def _inset_map(fig, spec):
                 transform=proj, zorder=15, **_text.font('body'))
 
 
+# ── Projection handling ─────────────────────────────────────────────────────
+
+_PROJECTIONS = {
+    'PlateCarree': ccrs.PlateCarree,
+    'Mercator': ccrs.Mercator,
+    'LambertConformal': ccrs.LambertConformal,
+    'Robinson': ccrs.Robinson,
+    'Mollweide': ccrs.Mollweide,
+    'Orthographic': ccrs.Orthographic,
+    'AlbersEqualArea': ccrs.AlbersEqualArea,
+    'AzimuthalEquidistant': ccrs.AzimuthalEquidistant,
+    'LambertAzimuthalEqualArea': ccrs.LambertAzimuthalEqualArea,
+    'NorthPolarStereo': ccrs.NorthPolarStereo,
+    'SouthPolarStereo': ccrs.SouthPolarStereo,
+}
+
+
 def _get_projection(spec):
-    """Resolve projection name to cartopy CRS."""
-    name = spec.get('projection', 'PlateCarree')
-    projections = {
-        'PlateCarree': ccrs.PlateCarree,
-        'Mercator': ccrs.Mercator,
-        'LambertConformal': ccrs.LambertConformal,
-        'Robinson': ccrs.Robinson,
-    }
-    cls = projections.get(name, ccrs.PlateCarree)
-    return cls()
+    """Resolve projection to cartopy CRS.
+
+    Accepts either a string name or a dict with 'name' + parameters:
+        'projection': 'PlateCarree'
+        'projection': {'name': 'Robinson', 'central_longitude': -5}
+    """
+    proj_spec = spec.get('projection', 'PlateCarree')
+
+    if isinstance(proj_spec, str):
+        cls = _PROJECTIONS.get(proj_spec, ccrs.PlateCarree)
+        return cls()
+
+    # Dict form: {'name': '...', **kwargs}
+    name = proj_spec.get('name', 'PlateCarree')
+    cls = _PROJECTIONS.get(name, ccrs.PlateCarree)
+    params = {k: v for k, v in proj_spec.items() if k != 'name'}
+    return cls(**params)

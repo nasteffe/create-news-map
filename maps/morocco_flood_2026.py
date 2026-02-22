@@ -149,7 +149,7 @@ MAP = {
             'lon': -5.6, 'lat': 34.95, 'shape': '^', 'size': 10,
             'color': '#2878B0', 'name': 'Oued El Makhazine',
             'name_size': 5.5, 'name_offset': (0.12, 0.0), 'name_va': 'center',
-            'annotation': '146% capacity', 'ann_color': '#C03030',
+            'annotation': 'peaked 160% capacity', 'ann_color': '#C03030',
             'ann_size': 5, 'ann_offset': (0.12, -0.06),
         },
         {
@@ -163,24 +163,30 @@ MAP = {
         {
             'lon': -5.90, 'lat': 34.98, 'shape': 's', 'size': 7,
             'color': '#C03030', 'name': 'Ksar El Kebir',
-            'annotation': '85% evacuated\n~50 000 displaced',
+            'name_offset': (-0.12, 0.0), 'name_ha': 'right', 'name_va': 'center',
+            'annotation': '85% evacuated | ~50 000 displaced',
+            'ann_offset': (-0.12, -0.06), 'ann_ha': 'right',
         },
         {
             'lon': -5.71, 'lat': 34.22, 'shape': 's', 'size': 7,
             'color': '#C03030', 'name': 'Sidi Kacem',
+            'name_offset': (0.10, 0.02), 'name_va': 'center',
             'annotation': 'villages submerged',
+            'ann_offset': (0.10, -0.05),
         },
         {
             'lon': -5.93, 'lat': 34.26, 'shape': 's', 'size': 7,
             'color': '#C03030', 'name': 'Sidi Slimane',
+            'name_offset': (-0.10, 0.02), 'name_ha': 'right', 'name_va': 'center',
             'annotation': 'partially submerged',
+            'ann_offset': (-0.10, -0.05), 'ann_ha': 'right',
         },
         # Displacement camp (triangle, gold).
         {
             'lon': -6.58, 'lat': 34.26, 'shape': '^', 'size': 9,
             'color': '#CC9900', 'name': 'Kenitra',
             'name_size': 7, 'name_offset': (-0.14, 0.10), 'name_ha': 'center',
-            'annotation': '40 000 in camps\n3 000 families',
+            'annotation': '~40 000 in camps (AFP)',
             'ann_color': '#CC9900', 'ann_size': 4.8,
             'ann_offset': (-0.14, -0.04), 'ann_ha': 'center',
         },
@@ -203,7 +209,7 @@ MAP = {
         {
             'lon': -5.37, 'lat': 35.57, 'shape': 'o', 'size': 6,
             'color': '#666666', 'name': 'Tetouan', 'name_color': '#333333',
-            'annotation': 'flash flood: 4 dead',
+            'annotation': 'flash flood: 5 dead',
             'ann_color': '#666666', 'ann_size': 4.5,
         },
         {
@@ -252,6 +258,15 @@ MAP = {
             'subtitle': '40 000 ha | 80% olive crop lost\nEUR 3.5 bn damages',
             'subtitle_offset': 0.15, 'subtitle_size': 5,
         },
+        # Terrain labels — subtle geographic context.
+        {
+            'lon': -4.7, 'lat': 35.0, 'text': 'RIF MOUNTAINS',
+            'size': 7, 'color': '#9A8A70', 'ha': 'center',
+        },
+        {
+            'lon': -6.0, 'lat': 34.35, 'text': 'GHARB PLAIN',
+            'size': 6.5, 'color': '#9A8A70', 'ha': 'center',
+        },
     ],
 
     # ── Inset locator ───────────────────────────────────────────────────
@@ -298,10 +313,10 @@ MAP = {
             'rows': [
                 {'value': '188 000',   'description': 'persons displaced',          'color': '#D97520', 'detail': 'across 4 provinces'},
                 {'value': '40 000',    'description': 'in tent camps near Kenitra',  'color': '#CC9900', 'detail': 'blue tents | livestock separated'},
-                {'value': '4',         'description': 'confirmed dead',              'color': '#C03030', 'detail': 'incl. 2-year-old | 1 missing'},
+                {'value': '5',         'description': 'confirmed dead (Tetouan)',     'color': '#C03030', 'detail': 'family swept away | incl. 2-year-old'},
                 {'value': '110 000+',  'description': 'hectares submerged',          'color': '#7A5230', 'detail': 'cereal | sugar beet | citrus'},
                 {'value': '$328 M',    'description': 'government relief package',   'color': '#2878B0', 'detail': '~10% earmarked for farmers'},
-                {'value': 'CHF 1.6 M', 'description': 'IFRC emergency appeal',      'color': '#2878B0', 'detail': 'Red Crescent operations'},
+                {'value': 'DREF',      'description': 'IFRC emergency mechanism',    'color': '#2878B0', 'detail': 'Red Crescent deploying across 4 provinces'},
             ],
             'quotes': {
                 'title': 'VOICES FROM THE CAMPS',

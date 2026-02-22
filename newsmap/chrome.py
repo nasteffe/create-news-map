@@ -24,7 +24,11 @@ def title_block(fig, spec):
 
 
 def scale_bar(ax, spec, proj):
-    """Draw a distance scale bar on the map."""
+    """Draw a distance scale bar on the map.
+
+    Tick height adapts to the map extent so the bar looks proportional
+    at any scale, from city blocks to world maps.
+    """
     sb = spec.get('scale_bar')
     if not sb:
         return
@@ -34,13 +38,23 @@ def scale_bar(ax, spec, proj):
     deg_per_km = 1.0 / (111.32 * np.cos(np.radians(ref_lat)))
     length = km * deg_per_km
 
+    # Tick height: use spec value, or scale from extent.
+    lat_span = spec['extent'][3] - spec['extent'][2]
+    tick = sb.get('tick', lat_span * 0.008)
+
+    # Format label: sub-km distances show metres.
+    if km >= 1:
+        label = f'{km:g} km'
+    else:
+        label = f'{km * 1000:g} m'
+
     ax.plot([lon, lon + length], [lat, lat],
             color='#333333', linewidth=2.5, transform=proj, zorder=15,
             solid_capstyle='butt')
     for x in [lon, lon + length]:
-        ax.plot([x, x], [lat - 0.06, lat + 0.06],
+        ax.plot([x, x], [lat - tick, lat + tick],
                 color='#333333', linewidth=1.5, transform=proj, zorder=15)
-    ax.text(lon + length / 2, lat + 0.12, f'{km} km',
+    ax.text(lon + length / 2, lat + tick * 2, label,
             fontsize=5.5, ha='center', color='#333333',
             path_effects=text.halo(2.5),
             transform=proj, zorder=15, **text.font('label'))

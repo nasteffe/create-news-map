@@ -1,4 +1,4 @@
-"""Side-panel renderers: bar charts, metrics tables, quote blocks.
+"""Side-panel renderers: bar charts, metrics tables, timelines, quote blocks.
 
 Each panel spec is a dict with a "type" key that selects the renderer.
 Panels operate on the figure (not the map axes) via fig.add_axes().
@@ -12,6 +12,7 @@ def render_panels(fig, spec):
     renderers = {
         'bar_chart': _bar_chart,
         'metrics': _metrics,
+        'timeline': _timeline,
     }
     for p in spec.get('panels', []):
         fn = renderers.get(p['type'])
@@ -129,3 +130,73 @@ def _metrics(fig, p):
             ax.text(0.05, y, q['attribution'], fontsize=5.5,
                     color='#888888', va='top', **text.font('body'))
             y -= 0.055
+
+
+def _timeline(fig, p):
+    """Vertical timeline panel with dated events.
+
+    Spec shape:
+        {
+            'type': 'timeline',
+            'rect': [x, y, w, h],
+            'title': 'KEY EVENTS',
+            'events': [
+                {'date': 'Jan 11', 'text': 'Dam overflows', 'color': '#C03030'},
+                {'date': 'Jan 14', 'text': 'Evacuations begin'},
+                ...
+            ],
+        }
+    """
+    ax = fig.add_axes(p['rect'])
+    ax.set_facecolor('white')
+    for spine in ax.spines.values():
+        spine.set_color('#DDDDDD')
+        spine.set_linewidth(0.5)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Title.
+    ax.text(0.05, 0.96, p.get('title', 'TIMELINE'), fontsize=10,
+            color='#1a1a1a', va='top', **text.font('title'))
+
+    events = p.get('events', [])
+    if not events:
+        return
+
+    # Layout: vertical line with dots at each event.
+    line_x = 0.12
+    text_x = 0.18
+    n = len(events)
+    spacing = p.get('event_spacing', min(0.10, 0.80 / max(n, 1)))
+    y = 0.87
+
+    # Draw the vertical spine line.
+    y_end = y - (n - 1) * spacing
+    ax.plot([line_x, line_x], [y, y_end],
+            color='#CCCCCC', linewidth=1.5, zorder=1, solid_capstyle='round')
+
+    for ev in events:
+        color = ev.get('color', '#333333')
+
+        # Dot on the timeline.
+        ax.plot(line_x, y, 'o', color=color, markersize=5,
+                markeredgecolor='white', markeredgewidth=0.5, zorder=3)
+
+        # Date (bold, left of line).
+        date = ev.get('date', '')
+        ax.text(line_x - 0.02, y, date, fontsize=6, color='#666666',
+                ha='right', va='center', **text.font('label'))
+
+        # Event text.
+        ax.text(text_x, y, ev['text'], fontsize=6.5, color=color,
+                va='center', **text.font('body'))
+
+        # Optional detail line.
+        detail = ev.get('detail')
+        if detail:
+            ax.text(text_x, y - spacing * 0.35, detail, fontsize=5.5,
+                    color='#888888', va='center', **text.font('body'))
+
+        y -= spacing
