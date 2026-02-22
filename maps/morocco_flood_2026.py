@@ -19,7 +19,7 @@ MAP = {
 
     'layout': {
         'size': (16.54, 11.69),           # A4 landscape
-        'map': [0.01, 0.145, 0.58, 0.80],
+        'map': [0.01, 0.16, 0.58, 0.79],
     },
 
     'colors': {
@@ -240,7 +240,7 @@ MAP = {
             'color': '#7B3FA0', 'width': 2.0, 'style': '--', 'alpha': 0.5,
             'end_marker': {'shape': 'X', 'size': 14, 'color': '#C03030'},
             'label': 'SUPPLY CHAIN\nDISRUPTED',
-            'label_pos': (-5.15, 35.85), 'label_color': '#7B3FA0',
+            'label_pos': (-4.65, 35.55), 'label_color': '#7B3FA0',
         },
     ],
 
@@ -249,8 +249,8 @@ MAP = {
         {
             'lon': -5.3, 'lat': 36.65, 'text': 'ANDALUSIA',
             'size': 9, 'color': '#C03030',
-            'subtitle': '40 000 ha | 80% olive crop lost | EUR 3.5 bn',
-            'subtitle_offset': 0.17, 'subtitle_size': 5,
+            'subtitle': '40 000 ha | 80% olive crop lost\nEUR 3.5 bn damages',
+            'subtitle_offset': 0.15, 'subtitle_size': 5,
         },
     ],
 
@@ -258,7 +258,7 @@ MAP = {
     # Western Mediterranean context — shows Morocco relative to Spain,
     # Algeria, and the Atlantic/Mediterranean.
     'inset': {
-        'rect': [0.015, 0.35, 0.24, 0.22],
+        'rect': [0.36, 0.17, 0.22, 0.19],
         'extent': [-12, 4, 28, 40],
         'labels': [
             {'lon': -5.0, 'lat': 31.0, 'text': 'MOROCCO', 'size': 5.5, 'color': '#555555'},
@@ -293,7 +293,7 @@ MAP = {
         },
         {
             'type': 'metrics',
-            'rect': [0.62, 0.145, 0.35, 0.50],
+            'rect': [0.62, 0.16, 0.35, 0.49],
             'title': 'THE HUMAN COST',
             'rows': [
                 {'value': '188 000',   'description': 'persons displaced',          'color': '#D97520', 'detail': 'across 4 provinces'},
@@ -325,8 +325,9 @@ MAP = {
 
     # ── Bottom bar ───────────────────────────────────────────────────────
     'bottom_bar': {
-        'rect': [0.0, 0.0, 1.0, 0.125],
+        'rect': [0.0, 0.0, 1.0, 0.14],
         'background': '#F4F3F0',
+        'flow_spacing': 0.17,
         'flows': [
             {'category': 'WATER',  'color': '#2878B0', 'text': '8.82 \u00d7 10\u2079 m\u00b3 inflow in one month \u2248 2 years combined on drought-degraded soils: max runoff, min infiltration'},
             {'category': 'SOIL',   'color': '#7A5230', 'text': '110 000+ ha waterlogged: topsoil stripping, salinization risk in coastal lowlands; restoration: months to years'},
@@ -335,6 +336,8 @@ MAP = {
             {'category': 'PEOPLE', 'color': '#D97520', 'text': '188 000 displaced (rainfed smallholders + pastoralists): structural vulnerability to next drought\u2013deluge cycle'},
         ],
         'legend': {
+            'y': 0.82,
+            'spacing': 0.135,
             'markers': [
                 {'shape': 's', 'color': '#C03030', 'label': 'Crisis city'},
                 {'shape': '^', 'color': '#CC9900', 'label': 'Displacement camp'},
@@ -351,15 +354,6 @@ MAP = {
         },
         'sources': 'Sources: IFRC | Moroccan Interior Ministry | COAG Andalusia | AFP | ESA/Copernicus | ReliefWeb | Met Office',
     },
-
-    # ── Figure-level annotations ─────────────────────────────────────────
-    'annotations': [
-        {
-            'x': 0.30, 'y': 0.14,
-            'text': '\u2715 110 000+ ha submerged farmland: cereal, sugar beet, citrus',
-            'size': 5.5, 'color': '#7A5230',
-        },
-    ],
 
     # ── Output ───────────────────────────────────────────────────────────
     'output': {
