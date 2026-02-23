@@ -31,30 +31,43 @@ Packaging and documentation for someone cloning the repo.
 - `pyproject.toml` with dependencies, dev extras, CLI entry point
 - `README.md` with install, quick start, spec reference, architecture
 
+### E: Real data integration
+GeoJSON loading for zones and terrain zones.
+
+- `newsmap/data.py` — load GeoJSON files or inline geometry dicts
+- Zones/terrain_zones accept `geojson` (file path) or `geojson_geometry`
+  (inline dict) as alternatives to hand-typed `vertices`
+- MultiPolygon features auto-expand to multiple zone entries
+- Properties inheritance (e.g. `name` → `label`)
+- Render pipeline resolves geodata before layer drawing
+- Synthetic hillshade from terrain polygons remains the fallback
+
+### F: Label collision avoidance
+Automatic label placement for marker names.
+
+- `newsmap/labels.py` — greedy 8-candidate placement algorithm
+- Estimates text bounding boxes in data coordinates from font size and extent
+- Avoids overlap with other marker labels, marker dots, zone labels, callouts
+- Penalizes out-of-bounds placement, prefers NE (cartographic convention)
+- Markers with explicit `name_offset` are fixed by default
+- Set `auto_labels: True` in spec to re-optimize all labels
+- 105 tests total (34 new), all passing
+
 ---
 
 ## Open
 
-### E: Real data integration
-Terrain currently uses synthetic hillshade built from hand-drawn polygons.
-Rivers and flood extents are also manual coordinates. Integrating real
-geospatial data would improve accuracy and reduce spec authoring effort.
+### E+: Real raster data
+The GeoJSON integration (E) handles vector data. Real raster data
+(DEM, satellite imagery) would further improve map accuracy:
 
-Candidates:
 - **DEM raster** — SRTM or Copernicus 30m tiles for real hillshade
-- **Flood extent** — Copernicus Emergency Management Service or Sentinel-1
-  SAR-derived flood polygons
+- **Flood extent** — Copernicus EMS or Sentinel-1 SAR flood polygons
 - **Fire perimeters** — NIFC/IRWIN GeoJSON feeds for US wildfires
 - **Rivers** — HydroSHEDS or higher-resolution Natural Earth overrides
 
-Trade-off: adds data download/caching complexity. The current synthetic
-approach keeps specs self-contained and reproducible with no external files.
-
-### F: Label collision avoidance
-Marker labels are placed with fixed offsets. When markers cluster (northern
-Gaza, Morocco flood zone), labels overlap. An automatic label placement
-pass — either adjustable-force layout or greedy grid snapping — would
-eliminate manual `name_offset` tuning in specs.
+Trade-off: requires rasterio (not currently installed) and adds data
+download/caching complexity.
 
 ### G: Colour system
 Each map hand-picks colours per marker and zone. A structured palette

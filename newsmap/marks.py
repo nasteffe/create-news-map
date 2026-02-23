@@ -62,8 +62,22 @@ def scatter(ax, spec, proj):
 
 
 def markers(ax, spec, proj):
-    """Draw point markers with name labels and annotations."""
-    for m in spec.get('markers', []):
+    """Draw point markers with name labels and annotations.
+
+    When markers omit 'name_offset', label positions are resolved
+    automatically to minimize overlap.  Set 'auto_labels': True
+    in the spec to re-optimize even explicit offsets.
+    """
+    from . import labels as _labels
+
+    marker_list = spec.get('markers', [])
+    if not marker_list:
+        return
+
+    # Resolve label positions (collision avoidance).
+    placements = _labels.resolve(marker_list, spec)
+
+    for m, (dx, dy, ha) in zip(marker_list, placements):
         lon, lat = m['lon'], m['lat']
         # Marker dot.
         ax.plot(lon, lat,
@@ -73,12 +87,11 @@ def markers(ax, spec, proj):
                 markeredgecolor=m.get('edge_color', 'white'),
                 markeredgewidth=m.get('edge_width', 0.7),
                 transform=proj, zorder=13)
-        # Name label.
-        nd = m.get('name_offset', (0.06, 0.06))
-        ax.text(lon + nd[0], lat + nd[1], m['name'],
+        # Name label (position from collision resolver).
+        ax.text(lon + dx, lat + dy, m['name'],
                 fontsize=m.get('name_size', 6.5),
                 color=m.get('name_color', '#1a1a1a'),
-                ha=m.get('name_ha', 'left'),
+                ha=ha,
                 va=m.get('name_va', 'baseline'),
                 path_effects=text.halo(3.2),
                 transform=proj, zorder=15,

@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import warnings
 
-from . import geo, marks, panels, chrome, defaults, validate
+from . import geo, marks, panels, chrome, defaults, validate, data
 
 warnings.filterwarnings('ignore')
 
@@ -52,6 +52,9 @@ def render(spec):
     # Validate before rendering (skip with '_skip_validation': True).
     if not spec.get('_skip_validation'):
         validate.check(spec)
+
+    # Resolve external geodata (GeoJSON → vertices) before merging.
+    data.resolve_geodata(spec)
 
     # Merge scale-aware defaults under user spec (user always wins).
     computed = defaults.for_extent(spec['extent'])

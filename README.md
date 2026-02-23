@@ -59,9 +59,9 @@ your spec — user values always win.
 | `meta` | Title, subtitle, tagline |
 | `terrain_zones` | Colored elevation polygons for hillshade |
 | `rivers` | Manual river polylines with labels |
-| `zones` | Analytical overlay polygons (flood extent, fire perimeter) |
+| `zones` | Analytical overlay polygons — `vertices`, `geojson`, or `geojson_geometry` |
 | `scatter_marks` | Random scatter fields (destruction, farmland) |
-| `markers` | Point markers with labels and annotations |
+| `markers` | Point markers with auto-placed labels (or explicit `name_offset`) |
 | `arrow_groups` | Grouped flow arrows (displacement, wind) |
 | `lines` | Styled lines (roads, supply chains) |
 | `callouts` | Text labels on the map |
@@ -77,6 +77,8 @@ newsmap/
   text.py      Font resolution, halo effects
   geo.py       Physical geography (ocean, land, hillshade, terrain, borders, coast, rivers, lakes)
   marks.py     Analytical overlays (zones, markers, arrows, lines, callouts)
+  labels.py    Label collision avoidance (auto-placement for marker names)
+  data.py      GeoJSON loading and geodata resolution
   panels.py    Side panels (bar charts, metrics, timelines)
   chrome.py    Figure chrome (title, scale bar, legend, sources)
   defaults.py  Scale-aware defaults engine
@@ -104,4 +106,4 @@ Design principles:
 python -m pytest tests/ -v
 ```
 
-71 tests across four categories: defaults, validation, geography, smoke rendering.
+105 tests across six categories: defaults, validation, geography, labels, data, smoke rendering.

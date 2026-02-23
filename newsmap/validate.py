@@ -64,18 +64,20 @@ def check(spec):
 
     # ── Terrain zones ───────────────────────────────────────────────────
     for i, z in enumerate(spec.get('terrain_zones', [])):
+        has_geo = z.get('geojson') or z.get('geojson_geometry')
         verts = z.get('vertices')
-        if verts is None:
-            errors.append(f"terrain_zones[{i}]: missing 'vertices'")
-        elif len(verts) < 3:
+        if verts is None and not has_geo:
+            errors.append(f"terrain_zones[{i}]: missing 'vertices' (or 'geojson'/'geojson_geometry')")
+        elif verts is not None and len(verts) < 3:
             errors.append(f"terrain_zones[{i}]: need >= 3 vertices, got {len(verts)}")
 
     # ── Zones (analytical overlays) ─────────────────────────────────────
     for i, z in enumerate(spec.get('zones', [])):
+        has_geo = z.get('geojson') or z.get('geojson_geometry')
         verts = z.get('vertices')
-        if verts is None:
-            errors.append(f"zones[{i}]: missing 'vertices'")
-        elif len(verts) < 3:
+        if verts is None and not has_geo:
+            errors.append(f"zones[{i}]: missing 'vertices' (or 'geojson'/'geojson_geometry')")
+        elif verts is not None and len(verts) < 3:
             errors.append(f"zones[{i}]: need >= 3 vertices, got {len(verts)}")
 
     # ── Output ──────────────────────────────────────────────────────────
