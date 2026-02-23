@@ -1,8 +1,8 @@
-"""Unit tests for newsmap.geo — hillshade smoothing."""
+"""Unit tests for newsmap.geo — hillshade smoothing and land geometry."""
 
 import numpy as np
 import pytest
-from newsmap.geo import _smooth
+from newsmap.geo import _smooth, land_geometry, ocean_mask
 
 
 class TestSmooth:
@@ -46,3 +46,47 @@ class TestSmooth:
         result = _smooth(grid, passes=5)
         # Not exact due to edge padding, but should be close.
         np.testing.assert_allclose(result.sum(), grid.sum(), rtol=0.15)
+
+
+# ── Land geometry ────────────────────────────────────────────────────────────
+
+class TestLandGeometry:
+    """Test the Natural Earth land geometry loader."""
+
+    def test_returns_prepared_geometry(self):
+        from shapely.geometry import Point
+        spec = {'extent': [-7.6, -3.6, 32.6, 37.0], 'ne_resolution': '110m'}
+        geom = land_geometry(spec)
+        # Should be a prepared geometry with a .contains method.
+        assert hasattr(geom, 'contains')
+        # Inland Morocco point should be on land.
+        assert geom.contains(Point(-5.0, 34.0))
+
+    def test_ocean_point_excluded(self):
+        from shapely.geometry import Point
+        spec = {'extent': [-7.6, -3.6, 32.6, 37.0], 'ne_resolution': '110m'}
+        geom = land_geometry(spec)
+        # Point well into the Atlantic should not be on land.
+        assert not geom.contains(Point(-7.5, 34.0))
+
+    def test_caching(self):
+        spec = {'extent': [-7.6, -3.6, 32.6, 37.0], 'ne_resolution': '110m'}
+        g1 = land_geometry(spec)
+        g2 = land_geometry(spec)
+        assert g1 is g2
+
+    def test_gaza_coast(self):
+        """Mediterranean off Gaza coast should be water."""
+        from shapely.geometry import Point
+        spec = {'extent': [34.0, 34.75, 31.08, 31.72], 'ne_resolution': '110m'}
+        geom = land_geometry(spec)
+        # Point in the Mediterranean, west of Gaza.
+        assert not geom.contains(Point(34.05, 31.5))
+
+    def test_la_ocean(self):
+        """Pacific Ocean off LA coast should be water."""
+        from shapely.geometry import Point
+        spec = {'extent': [-118.80, -117.95, 33.90, 34.40], 'ne_resolution': '110m'}
+        geom = land_geometry(spec)
+        # Point in the Pacific.
+        assert not geom.contains(Point(-118.75, 33.95))

@@ -9,7 +9,9 @@ import numpy as np
 import cartopy.feature as cfeature
 from matplotlib.colors import LightSource
 from matplotlib.path import Path
-from shapely.geometry import Polygon
+from shapely.geometry import Polygon, box
+from shapely.ops import unary_union
+from shapely import prepared
 
 from . import text
 
@@ -84,6 +86,23 @@ def terrain_zones(ax, spec, proj):
             edgecolor='none',
             alpha=z.get('alpha', 0.5),
             zorder=3)
+
+
+def ocean_mask(ax, spec, proj):
+    """Re-draw ocean above terrain zones and hillshade.
+
+    This clips any terrain polygon or hillshade shading that bleeds
+    past the coastline into water.  Drawn at zorder=3.5 — above
+    terrain_zones (3) and hillshade (2), but below rivers (4),
+    borders (5), coastline (6), and all overlays (7+).
+    """
+    colors = spec.get('colors', {})
+    res = spec.get('ne_resolution', '10m')
+    feat = cfeature.NaturalEarthFeature(
+        'physical', 'ocean', res,
+        facecolor=colors.get('ocean', '#D4E4F0'),
+        edgecolor='none')
+    ax.add_feature(feat, zorder=3.5)
 
 
 def borders(ax, spec, proj):
@@ -166,3 +185,48 @@ def _smooth(grid, passes=10):
                 p[1:-1, :-2] + p[1:-1, 1:-1] + p[1:-1, 2:] +
                 p[2:, :-2] + p[2:, 1:-1] + p[2:, 2:]) / 9.0
     return grid
+
+
+# ── Land geometry for point-in-land tests ────────────────────────────────────
+
+# Module-level cache: {(resolution, extent_tuple): prepared_geometry}
+_land_cache = {}
+
+
+def land_geometry(spec):
+    """Return a prepared shapely geometry for land within the map extent.
+
+    Uses Natural Earth land polygons at the spec's resolution, clipped
+    to the map extent for fast point-in-polygon tests.  The result is
+    cached per (resolution, extent) so repeated calls are free.
+    """
+    extent = spec['extent']
+    res = spec.get('ne_resolution', '10m')
+    key = (res, tuple(extent))
+
+    if key in _land_cache:
+        return _land_cache[key]
+
+    # Build a bounding box slightly larger than the extent to avoid
+    # edge artefacts with coastline simplification.
+    pad = 0.5
+    bbox = box(extent[0] - pad, extent[2] - pad,
+               extent[1] + pad, extent[3] + pad)
+
+    # Load Natural Earth land geometries that intersect our bbox.
+    reader = cfeature.NaturalEarthFeature('physical', 'land', res)
+    land_polys = []
+    for geom in reader.geometries():
+        clipped = geom.intersection(bbox)
+        if not clipped.is_empty:
+            land_polys.append(clipped)
+
+    if land_polys:
+        merged = unary_union(land_polys)
+    else:
+        # Fallback: treat entire extent as land (no filtering).
+        merged = bbox
+
+    prep = prepared.prep(merged)
+    _land_cache[key] = prep
+    return prep

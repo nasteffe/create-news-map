@@ -45,13 +45,41 @@ def zones(ax, spec, proj):
 
 
 def scatter(ax, spec, proj):
-    """Draw scatter-mark fields (e.g. farmland X-hatching)."""
+    """Draw scatter-mark fields (e.g. farmland X-hatching).
+
+    Points are filtered to land areas so that marks never appear
+    in water.  Over-generates by 2x and keeps the first N on-land
+    points to maintain the requested density.
+    """
+    if not spec.get('scatter_marks'):
+        return
+
+    from . import geo as _geo
+    from shapely.geometry import Point
+
+    land = _geo.land_geometry(spec)
+
     for s in spec.get('scatter_marks', []):
         np.random.seed(s.get('seed', 42))
         bounds = s['bounds']  # (lon_min, lon_max, lat_min, lat_max)
         n = s.get('n', 20)
-        lons = np.random.uniform(bounds[0], bounds[1], n)
-        lats = np.random.uniform(bounds[2], bounds[3], n)
+
+        # Over-generate to compensate for points filtered out of water.
+        pool = n * 3
+        all_lons = np.random.uniform(bounds[0], bounds[1], pool)
+        all_lats = np.random.uniform(bounds[2], bounds[3], pool)
+
+        # Keep only points on land.
+        on_land = [i for i in range(pool)
+                   if land.contains(Point(all_lons[i], all_lats[i]))]
+        keep = on_land[:n]
+
+        if not keep:
+            continue
+
+        lons = all_lons[keep]
+        lats = all_lats[keep]
+
         ax.scatter(lons, lats,
                    marker=s.get('marker', 'x'),
                    s=s.get('size', 25),

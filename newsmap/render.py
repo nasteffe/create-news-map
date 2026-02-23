@@ -26,6 +26,7 @@ GEO_LAYERS = [
     geo.land,
     geo.hillshade,
     geo.terrain_zones,
+    geo.ocean_mask,       # clips terrain/hillshade bleed into water
     geo.borders,
     geo.coastline,
     geo.rivers,
