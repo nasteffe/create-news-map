@@ -134,7 +134,7 @@ def _inset_map(fig, spec):
     from . import text as _text
     for lbl in inset.get('labels', []):
         ax.text(lbl['lon'], lbl['lat'], lbl['text'],
-                fontsize=lbl.get('size', 4),
+                fontsize=lbl.get('size', 5.5),
                 color=lbl.get('color', '#666666'),
                 ha=lbl.get('ha', 'center'), va=lbl.get('va', 'center'),
                 transform=proj, zorder=15, **_text.font('body'))

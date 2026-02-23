@@ -55,7 +55,7 @@ def scale_bar(ax, spec, proj):
         ax.plot([x, x], [lat - tick, lat + tick],
                 color='#333333', linewidth=1.5, transform=proj, zorder=15)
     ax.text(lon + length / 2, lat + tick * 2, label,
-            fontsize=5.5, ha='center', color='#333333',
+            fontsize=6.5, ha='center', color='#333333',
             path_effects=text.halo(2.5),
             transform=proj, zorder=15, **text.font('label'))
 
@@ -79,10 +79,10 @@ def bottom_bar(fig, spec):
     # Flow rows.
     y = 0.90
     for f in bb.get('flows', []):
-        ax.text(0.015, y, f['category'], fontsize=5.5,
+        ax.text(0.015, y, f['category'], fontsize=6.5,
                 color=f.get('color', '#333333'), va='top',
                 **text.font('label'))
-        ax.text(0.065, y, f['text'], fontsize=5, color='#444444',
+        ax.text(0.065, y, f['text'], fontsize=5.5, color='#444444',
                 va='top', **text.font('body'))
         y -= bb.get('flow_spacing', 0.185)
 
@@ -93,7 +93,7 @@ def bottom_bar(fig, spec):
     # Source line.
     sources = bb.get('sources', '')
     if sources:
-        ax.text(0.98, 0.06, sources, fontsize=4, color='#999999',
+        ax.text(0.98, 0.06, sources, fontsize=5, color='#999999',
                 va='bottom', ha='right', **text.font('body'))
 
 
@@ -129,7 +129,7 @@ def _draw_legend(ax, legend):
     lx = legend.get('line_x', mx + 0.12 if n_markers else mx)
 
     if marker_items or line_items:
-        ax.text(mx, y0 + 0.05, 'LEGEND', fontsize=6,
+        ax.text(mx, y0 + 0.05, 'LEGEND', fontsize=7,
                 color='#333333', va='top', **text.font('label'))
 
     for i, m in enumerate(marker_items):
@@ -138,7 +138,7 @@ def _draw_legend(ax, legend):
                 marker=m['shape'], markersize=6, color=m['color'],
                 markeredgecolor='white', markeredgewidth=0.5,
                 transform=ax.transAxes, clip_on=False)
-        ax.text(mx + 0.035, ypos, m['label'], fontsize=5,
+        ax.text(mx + 0.035, ypos, m['label'], fontsize=5.5,
                 color='#444444', va='center',
                 transform=ax.transAxes, **text.font('body'))
 
@@ -148,6 +148,6 @@ def _draw_legend(ax, legend):
                 linestyle=ln.get('style', '-'), color=ln['color'],
                 linewidth=ln.get('width', 1.5), alpha=0.7,
                 transform=ax.transAxes, clip_on=False)
-        ax.text(lx + 0.035, ypos, ln['label'], fontsize=5,
+        ax.text(lx + 0.035, ypos, ln['label'], fontsize=5.5,
                 color='#444444', va='center',
                 transform=ax.transAxes, **text.font('body'))

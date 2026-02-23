@@ -73,7 +73,7 @@ def _bar_chart(fig, p):
     title = p.get('title', '')
     if title:
         fig.text(rect[0], rect[1] + rect[3] - title_h * 0.35,
-                 title, fontsize=9, va='center', ha='left',
+                 title, fontsize=10, va='center', ha='left',
                  color='#1a1a1a', **text.font('title'))
 
 
@@ -186,11 +186,11 @@ def _timeline(fig, p):
 
         # Date (bold, left of line).
         date = ev.get('date', '')
-        ax.text(line_x - 0.02, y, date, fontsize=6, color='#666666',
+        ax.text(line_x - 0.02, y, date, fontsize=6.5, color='#666666',
                 ha='right', va='center', **text.font('label'))
 
         # Event text.
-        ax.text(text_x, y, ev['text'], fontsize=6.5, color=color,
+        ax.text(text_x, y, ev['text'], fontsize=7, color=color,
                 va='center', **text.font('body'))
 
         # Optional detail line.
