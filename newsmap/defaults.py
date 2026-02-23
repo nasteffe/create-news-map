@@ -128,6 +128,7 @@ def for_extent(extent):
 
         # Output.
         'output': {
+            'dir': 'output',
             'basename': 'map',
             'formats': [{'ext': 'jpg', 'dpi': 200}],
         },

@@ -20,7 +20,7 @@ pip install -e .
 
 ## Quick start
 
-Render all maps:
+Render all maps (outputs to `output/`):
 
 ```bash
 python make_map.py
@@ -31,6 +31,8 @@ Render one map:
 ```bash
 python make_map.py maps.morocco_flood_2026
 ```
+
+Output files go to the `output/` directory by default. Override with `output.dir` in your spec.
 
 ## Writing a map spec
 
@@ -68,7 +70,7 @@ your spec — user values always win.
 | `inset` | Locator inset map with context labels |
 | `panels` | Side panels: `bar_chart`, `metrics`, `timeline` |
 | `bottom_bar` | Metabolic flows, legend, source attribution |
-| `output` | Basename and format list (ext + dpi) |
+| `output` | `dir` (default `'output'`), `basename`, and format list (ext + dpi) |
 
 ## Architecture
 
@@ -90,6 +92,7 @@ maps/
   gaza_ceasefire_2026.py   Gaza ceasefire-to-reconstruction
   la_firestorm_2025.py     Los Angeles wildfire event
 
+output/       Generated maps (gitignored)
 make_map.py   CLI entry point with auto-discovery
 ```
 
@@ -106,4 +109,4 @@ Design principles:
 python -m pytest tests/ -v
 ```
 
-105 tests across six categories: defaults, validation, geography, labels, data, smoke rendering.
+110 tests across six categories: defaults, validation, geography, labels, data, smoke rendering.

@@ -8,7 +8,6 @@ to a temp directory to avoid polluting the repo.
 
 import os
 import importlib
-import tempfile
 import pytest
 
 
@@ -24,13 +23,14 @@ def _render_to_tmpdir(spec, tmpdir):
     spec = copy.deepcopy(spec)
 
     # Redirect output to temp directory.
-    basename = spec.get('output', {}).get('basename', 'map')
     spec.setdefault('output', {})
-    spec['output']['basename'] = os.path.join(tmpdir, basename)
+    spec['output']['dir'] = tmpdir
 
     from newsmap.render import render
     render(spec)
-    return spec['output']['basename']
+
+    basename = spec['output'].get('basename', 'map')
+    return os.path.join(tmpdir, basename)
 
 
 # ── Smoke tests ──────────────────────────────────────────────────────────────
@@ -78,7 +78,8 @@ class TestRegressionGuards:
             'extent': [-10, -5, 30, 36],
             'meta': {'title': 'TEST'},
             'output': {
-                'basename': os.path.join(str(tmp_path), 'test_minimal'),
+                'dir': str(tmp_path),
+                'basename': 'test_minimal',
                 'formats': [{'ext': 'jpg', 'dpi': 72}],
             },
         }
@@ -101,7 +102,8 @@ class TestRegressionGuards:
             'callouts': [],
             'scatter_marks': [],
             'output': {
-                'basename': os.path.join(str(tmp_path), 'test_empty'),
+                'dir': str(tmp_path),
+                'basename': 'test_empty',
                 'formats': [{'ext': 'jpg', 'dpi': 72}],
             },
         }

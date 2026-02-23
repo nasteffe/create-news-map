@@ -9,6 +9,8 @@ the user spec, so every value is overridable and existing specs render
 identically.
 """
 
+import os
+
 import matplotlib
 matplotlib.use('Agg')
 
@@ -85,9 +87,13 @@ def render(spec):
 
     # Save.
     output = spec['output']
+    out_dir = output.get('dir', 'output')
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     basename = output.get('basename', 'map')
     for fmt in output.get('formats', [{'ext': 'jpg', 'dpi': 200}]):
-        path = f"{basename}.{fmt['ext']}"
+        filename = f"{basename}.{fmt['ext']}"
+        path = os.path.join(out_dir, filename) if out_dir else filename
         fig.savefig(path, dpi=fmt['dpi'],
                     bbox_inches='tight', pad_inches=0.1,
                     facecolor='white')
